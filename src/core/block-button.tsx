@@ -1,9 +1,9 @@
 import React from "react";
 
-export class BlockButton extends React.Component<{block: boolean}, {color: string}> {
-	private buttonBlock: boolean;
+export class BlockButton extends React.Component<{block: boolean, id:string}, {color: string}> {
+	buttonBlock: boolean;
 
-	constructor(props: {block: boolean}) {
+	constructor(props: {block: boolean, id:string}) {
 		super(props);
 		this.buttonBlock = props.block;
 		if(props.block) {

@@ -11,9 +11,17 @@ export default class ConnectionService {
 		}
 	}
 
-	/*listMaps(): Promise<MapInfo[]> {
+	saveMap(map: BattlefieldMap): void {
+		this.conn.post('localhost:8080/save', map);
+	}
+
+	deleteMap(id: number): void {
+		this.conn.delete(`localhost:8080/${id}`);
+	}
+
+	listMaps(): Promise<MapInfo[]> {
 		return this.conn.get('loccalhost:8080/getMaps');
-	}*/
+	}
 
 	fetchMap(mapID: number): BattlefieldMap {
 		const battleFieldMap = {
