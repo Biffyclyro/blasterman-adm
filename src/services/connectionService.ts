@@ -1,6 +1,8 @@
-import { BattlefieldMap } from "../core/dto";
+import axios from "axios";
+import { BattlefieldMap, MapInfo } from "../core/dto";
 
 export default class ConnectionService {
+	private readonly conn = axios;
 	private static readonly INSTANCE = new ConnectionService();
 	
 	constructor() {
@@ -9,7 +11,11 @@ export default class ConnectionService {
 		}
 	}
 
-	fetchMap(): BattlefieldMap {
+	/*listMaps(): Promise<MapInfo[]> {
+		return this.conn.get('loccalhost:8080/getMaps');
+	}*/
+
+	fetchMap(mapID: number): BattlefieldMap {
 		const battleFieldMap = {
 			tiles: 'area01/tiles-area01.png',
 			breakableBlocks: [

@@ -2,17 +2,24 @@ import React from 'react';
 import ConnectionService from '../services/connectionService';
 import { BattlefieldMap } from './dto';
 import { BlockButton } from './block-button';
+import { match} from 'react-router-dom';
 
 
-export class MapBuilder extends React.Component {
-	private battlefieldMap: BattlefieldMap;
+export class MapBuilder extends React.Component<{match?:match} > {
+	private elementsList: JSX.Element[] = [];
+	private readonly httpC = new ConnectionService();
 
-	constructor(props: any) {
-		super(props);
-		this.battlefieldMap = new ConnectionService().fetchMap();
+	componentDidMount(): void {
+		if (this.props.match) {
+			const map = this.httpC.fetchMap(1);
+			this.elementsList = this.buildMap(map);
+		} else {
+			this.elementsList = this.buildMap();
+		}
+		this.setState({});
 	}
 
-	buildMap(): JSX.Element[] {
+	buildMap(map?: BattlefieldMap): JSX.Element[] {
 		const blocklist = [];
 
 		for (let i = 0; i < 19; i++) {
@@ -32,7 +39,7 @@ export class MapBuilder extends React.Component {
 						</button>
 					);
 				} else {
-					if( this.battlefieldMap.breakableBlocks.find(block => {return block.x === j && block.y === i}) ) {
+					if( map && map.breakableBlocks.find(block => {return block.x === j && block.y === i}) ) {
 						//element = <button className="btn btn-danger">&nbsp;&nbsp;</button>;
 						element = <BlockButton block  />
 					} else {
@@ -53,7 +60,7 @@ export class MapBuilder extends React.Component {
 		return (
 			<div>
 				<h2>Editor de mapas</h2>
-				<div>{this.buildMap()}</div>
+				<div>{this.elementsList}</div>
 				<br />
 				<div className="btn btn-primary">Salvar</div>
 				<div className="btn btn-warning">Cancelar</div>
