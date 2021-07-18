@@ -19,24 +19,22 @@ export class MapBuilder extends React.Component<{match?:match} > {
 			this.map = {
 				tiles: 'area01/tiles-area01.png',
 				breakableBlocks: [],
-				background: { key: 'area01', url: 'area01' }
+				background: {
+					key: 'bg-area01',
+					url: 'area01/bg-area01.jpg'
+				}
 			}
 			this.elementsList = this.buildMap();
 		}
 		this.setState({});
 	}
 
-	
 	saveMap():void {
 		const rawElements = this.elementsList.filter(e => e.props.id !== undefined && e.props.block.bool);
 		const blocks = rawElements.map(e => e.props.id);
 		console.log(blocks)
 		this.map!.breakableBlocks = blocks;
 		this.httpC.saveMap(this.map!);
-	}
-
-	editMap(x: number): void {
-		console.log('rolou', x)
 	}
 
 	buildMap(map?: BattlefieldMap): JSX.Element[] {

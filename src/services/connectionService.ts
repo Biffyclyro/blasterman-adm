@@ -12,6 +12,7 @@ export default class ConnectionService {
 	}
 
 	saveMap(map: BattlefieldMap): void {
+		console.log(map)
 		this.conn.post('localhost:8080/save', map);
 	}
 
@@ -52,5 +53,4 @@ export default class ConnectionService {
 		}
 		 return battleFieldMap;
 	}
-
 }
