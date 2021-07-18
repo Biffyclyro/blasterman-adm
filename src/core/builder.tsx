@@ -17,7 +17,7 @@ export class MapBuilder extends React.Component<{match?:match} > {
 			this.elementsList = this.buildMap(this.map);
 		} else {
 			this.map = {
-				tiles: 'area01',
+				tiles: 'area01/tiles-area01.png',
 				breakableBlocks: [],
 				background: { key: 'area01', url: 'area01' }
 			}
@@ -28,11 +28,11 @@ export class MapBuilder extends React.Component<{match?:match} > {
 
 	
 	saveMap():void {
-		const rawElements = this.elementsList.filter(e => e.props.id !== undefined);
-		//@ts-ignore
-		rawElements.forEach(e => )
+		const rawElements = this.elementsList.filter(e => e.props.id !== undefined && e.props.block.bool);
 		const blocks = rawElements.map(e => e.props.id);
-		//this.httpC.saveMap(this.map!);
+		console.log(blocks)
+		this.map!.breakableBlocks = blocks;
+		this.httpC.saveMap(this.map!);
 	}
 
 	editMap(x: number): void {
@@ -61,12 +61,12 @@ export class MapBuilder extends React.Component<{match?:match} > {
 				} else {
 					if( map && map.breakableBlocks.find(block => {return block.x === j && block.y === i}) ) {
 						//element = <button className="btn btn-danger">&nbsp;&nbsp;</button>;
-						element = <BlockButton id={`{x:${j}, y:${i}}`} block />
+						element = <BlockButton id={{x:j, y:i}} block={{bool: true}} />
 					} else {
 						//console.log(this.battlefieldMap.breakableBlocks.includes({x:j, y:i}), {x:j, y:i})
 					//	element = <div className="btn btn-success">&nbsp;&nbsp;</div>;
 
-						element = <BlockButton id={`{x:${j}, y:${i}}`} block={false} />
+						element = <BlockButton id={{x:j, y:i}} block={{bool:false}} />
 					}
 				}
 				blocklist.push(element);
