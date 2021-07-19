@@ -12,9 +12,17 @@ export class MapBuilder extends React.Component<{match?:match} > {
 
 	componentDidMount(): void {
 		if (this.props.match) {
-			console.log(this.props.match)
-			this.map = this.httpC.fetchMap(1);
-			this.elementsList = this.buildMap(this.map);
+			console.log(this.props.match.params)
+			//@ts-ignore
+			this.httpC.fetchMap(this.props.match.params.id).then(m => {
+
+				//@ts-ignore
+				this.map = m.data.data
+				console.log(this.map)
+				this.elementsList = this.buildMap(this.map);
+				this.setState({});
+			});
+
 		} else {
 			this.map = {
 				tiles: 'area01/tiles-area01.png',
@@ -80,7 +88,7 @@ export class MapBuilder extends React.Component<{match?:match} > {
 				<h2>Editor de mapas</h2>
 				<div>{this.elementsList}</div>
 				<br />
-				<button onClick={this.saveMap.bind(this)} className="btn btn-primary">Salvar</button>
+				<Link to='/'><button onClick={this.saveMap.bind(this)} className="btn btn-primary">Salvar</button></Link>
 				<Link to='/' className="btn btn-warning">Cancelar</Link>
 			</div>
 		);
