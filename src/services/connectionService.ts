@@ -2,6 +2,7 @@ import axios from "axios";
 import { BattlefieldMap, Dto, MapInfo } from "../core/dto";
 
 export default class ConnectionService {
+  private readonly API_URL = 'http://localhost:8090/';
 	private readonly conn = axios;
 	private static readonly INSTANCE = new ConnectionService();
 	
@@ -12,23 +13,24 @@ export default class ConnectionService {
 	}
 
 	saveMap(map: BattlefieldMap): void {
+		const mapDto = {data: map}
 		if (map._id) {
-			this.conn.post(`http://localhost:8080/update/${map._id}`, map);
+			this.conn.post(`${this.API_URL}update/${map._id}`, mapDto);
 		} else {
-			this.conn.post('http://localhost:8080', map);
+			this.conn.post(`${this.API_URL}new-map`, mapDto);
 		}
 	}
 
 	listMaps(): Promise<Dto<BattlefieldMap[]>> {
-		return this.conn.get('http://localhost:8080/getMaps')
+		return this.conn.get(`${this.API_URL}get-maps`).then(r => r.data);
 	}
 
 	deleteMap(id: string): void {
-		this.conn.delete(`http://localhost:8080/${id}`);
+		this.conn.delete(`${this.API_URL}${id}`);
 	}
 
 	fetchMap(mapID: string): Promise<Dto<BattlefieldMap>> {
-		return this.conn.get(`http://localhost:8080/map/${mapID}`);
+		return this.conn.get(`${this.API_URL}map/${mapID}`).then(r => r.data);
 		const battleFieldMap = {
 			tiles: 'area01/tiles-area01.png',
 			breakableBlocks: [

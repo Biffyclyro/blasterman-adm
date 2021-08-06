@@ -17,7 +17,7 @@ export class MapBuilder extends React.Component<{match?:match} > {
 			this.httpC.fetchMap(this.props.match.params.id).then(m => {
 
 				//@ts-ignore
-				this.map = m.data.data
+				this.map = m.data
 				console.log(this.map)
 				this.elementsList = this.buildMap(this.map);
 				this.setState({});
