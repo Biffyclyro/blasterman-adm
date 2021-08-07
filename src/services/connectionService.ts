@@ -13,7 +13,7 @@ export default class ConnectionService {
 	}
 
 	saveMap(map: BattlefieldMap): void {
-		const mapDto = {data: map}
+		const mapDto = {data: map};
 		if (map._id) {
 			this.conn.post(`${this.API_URL}update/${map._id}`, mapDto);
 		} else {
