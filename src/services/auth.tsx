@@ -4,26 +4,30 @@ import ConnectionService from "./connectionService";
 
 interface AuthContextData {
 	signed: boolean;
-	login(): Promise<Dto<string>>
+	login(): Promise<void>
 }
+
+const httpC = new ConnectionService();
 
 export const AuthContext = React.createContext<AuthContextData>({} as AuthContextData);
 
-export class AuthProvider extends React.Component {
-	private readonly httpC = new ConnectionService();
+export const AuthProvider: React.FC = ({children}) => {
+	const [loged, setLoget] = React.useState<boolean >(false);
 
-	async login(): Promise<Dto<string>> {
-		console.log('teste')
-		return await this.httpC.login({
-			login: 'teste',
-			senha: '1234'
+	const login = async (): Promise<void> => {
+		const response = await httpC.login({
+			email: 'teste',
+			password: '1234'
 		});
+
+		if (response.data) {
+			setLoget(true);
+			httpC.setToken(response.data);
+		}
 	}
-	render() {
-		return (
-			<AuthContext.Provider value={{ signed: true, login: this.login.bind(this) }}>
-				{this.props.children}
-			</AuthContext.Provider>
-		);
-	}
+	return (
+		<AuthContext.Provider value={{ signed: loged, login }}>
+			{children}
+		</AuthContext.Provider>
+	);
 };

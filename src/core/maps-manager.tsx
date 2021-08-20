@@ -45,7 +45,6 @@ export class MapsManager extends React.Component {
               <th scope="col">Nome</th>
               <th></th>
             </tr>
-
           </thead>
           <tbody>
             {trs}
