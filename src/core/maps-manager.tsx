@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ConnectionService from "../services/connectionService";
 import { BattlefieldMap, MapInfo } from "./dto";
+import { Logout } from "./login";
 
 export class MapsManager extends React.Component {
   private readonly httpC = new ConnectionService();
@@ -58,6 +59,7 @@ export class MapsManager extends React.Component {
     return (
       <div className="offset-2 col-4">
         <Link to='map-editor' className="btn btn-success mt-3">Novo mapa</Link>
+        <Logout/>
         {this.table} 
       </div>
     );

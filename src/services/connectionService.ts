@@ -42,5 +42,8 @@ export default class ConnectionService {
 	setToken(token: string): void {
 		this.conn.defaults.headers.Authorization = `Bearer ${token}`
 	}
-	
+
+	removeToken(): void {
+		this.conn.defaults.headers.Authorization = undefined;
+	}
 }

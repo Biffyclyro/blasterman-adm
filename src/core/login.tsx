@@ -42,13 +42,12 @@ export class LoginForm extends React.Component<{handleLogin(user: User): void}, 
 				<label htmlFor="senha " className="form-label">Senha</label>
 				<input 
 				name="password"
-
 				onChange={this.inpuHandler.bind(this)}
 				type="password" className="form-control" id="senha" placeholder="name@example.com"
 					value={this.state.password}
 				></input>
 			</div>
-			<button type="button" onClick={() => this.props.handleLogin(this.state)} className="btn btn-primary position-absolute start-1">Entrar</button>
+			<button type="button" onClick={() => this.props.handleLogin(this.state)} className="btn btn-primary start">Entrar</button>
 		</form>);
 	}
 }
@@ -59,6 +58,16 @@ export const Login: React.FC = () => {
 	const handleLogin = (user: User): void => {
 		context.login(user);
 	}
-
+	
 	return <LoginForm handleLogin={handleLogin} />;
+}
+
+export const Logout: React.FC = () => {
+	const context = React.useContext(AuthContext);
+
+	const handleLogout = () => {
+		context.logout();
+	}
+
+	return <button onClick={handleLogout} className="btn btn-warning mt-3">Logout</button>
 }

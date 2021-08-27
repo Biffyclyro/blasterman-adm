@@ -4,7 +4,8 @@ import ConnectionService from "./connectionService";
 
 interface AuthContextData {
 	signed: boolean;
-	login(user: User): Promise<void>
+	login(user: User): Promise<void>;
+	logout(): void;
 }
 
 export interface User {
@@ -28,8 +29,14 @@ export const AuthProvider: React.FC = ({children}) => {
 			httpC.setToken(response.data);
 		}
 	}
+
+	const logout = (): void => {
+		setLoget(false);
+		httpC.removeToken();
+	}
+
 	return (
-		<AuthContext.Provider value={{ signed: loged, login: (user: User) => login(user)}}>
+		<AuthContext.Provider value={{ signed: loged, login: (user: User) => login(user), logout}}>
 			{children}
 		</AuthContext.Provider>
 	);

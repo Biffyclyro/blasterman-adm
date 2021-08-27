@@ -6,6 +6,7 @@ import {
 import { MapBuilder } from "./builder";
 import { Login } from "./login";
 import { MapsManager } from "./maps-manager";
+import { Relatorio } from './relatorio';
 
 export const Routes: React.FC = () => {
 	return (
@@ -14,6 +15,9 @@ export const Routes: React.FC = () => {
 				<Route path='/map-editor/:id' component={MapBuilder} />
 				<Route path='/map-editor'>
 					<MapBuilder />
+				</Route>
+				<Route path='/relatorio'>
+					<Relatorio/>
 				</Route>
 				<Route path='/login'>
 					<Login />
