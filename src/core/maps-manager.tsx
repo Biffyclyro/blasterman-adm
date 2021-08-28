@@ -59,6 +59,7 @@ export class MapsManager extends React.Component {
     return (
       <div className="offset-2 col-4">
         <Link to='map-editor' className="btn btn-success mt-3">Novo mapa</Link>
+        <Link to='relatorio' className='btn btn-primary mt-3'>Relatório</Link>
         <Logout/>
         {this.table} 
       </div>

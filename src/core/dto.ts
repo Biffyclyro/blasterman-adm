@@ -14,3 +14,10 @@ export interface Dto<T> {
   info?: string;
   data?: T
 }
+
+export interface RoomMetada {
+  countries: string[],
+  roomName: string,
+  numPlayers: number,
+  matchTime: number,
+}

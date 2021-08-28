@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BattlefieldMap, Dto, MapInfo } from "../core/dto";
+import { BattlefieldMap, Dto, MapInfo, RoomMetada } from "../core/dto";
 
 export default class ConnectionService {
   private readonly API_URL = 'http://localhost:8090/';
@@ -37,6 +37,10 @@ export default class ConnectionService {
 
 	fetchMap(mapID: string): Promise<Dto<BattlefieldMap>> {
 		return this.conn.get(`map/${mapID}`).then(r => r.data);
+	}
+
+	relatorio(): Promise<Dto<RoomMetada[]>> {
+		return this.conn.get('relatorio').then(r => r.data);
 	}
 
 	setToken(token: string): void {
